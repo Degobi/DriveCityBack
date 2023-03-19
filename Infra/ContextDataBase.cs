@@ -7,7 +7,7 @@ namespace DriveOfCity.Infra
     {
 
         #region USUARIO ==============================
-        public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Usuario> Usuario { get; set; }
         #endregion
 
         public ContextDataBase(DbContextOptions<ContextDataBase> options) : base(options){ }
