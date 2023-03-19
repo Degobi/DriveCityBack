@@ -1,12 +1,18 @@
 using DriveOfCity.Infra;
+using DriveOfCity.IServices.IUsuarioService;
+using DriveOfCity.Services.UsuarioService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSqlServer<ContextDataBase>(builder.Configuration["ConnectionString:DriveOC"]);
-
 builder.Services.AddControllers();
+
+#region USUARIO ============================
+builder.Services.AddScoped<IUsuarioService, UsuarioService>();
+#endregion
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddMvc();
@@ -40,6 +46,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseCors(x => x
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .SetIsOriginAllowed(origin => true)
+    .AllowCredentials());
 
 app.UseHttpsRedirection();
 app.UseAuthentication();
