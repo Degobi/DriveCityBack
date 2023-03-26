@@ -1,6 +1,7 @@
 ﻿using DriveOfCity.Infra;
 using DriveOfCity.IServices.IUsuarioService;
 using DriveOfCity.Models.MUsuario;
+using DriveOfCity.Services.UsuarioService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -11,7 +12,7 @@ using System.Text;
 namespace DriveOfCity.Controllers.UsuarioController
 {
     [Route("api/usuario")]
-    public class UsuarioController : Controller
+    public class UsuarioController : ControllerBase
     {
         private readonly IConfiguration _configuration;
         private readonly IUsuarioService _usuarioService;
@@ -26,7 +27,7 @@ namespace DriveOfCity.Controllers.UsuarioController
 
         [HttpPost]
         [AllowAnonymous]
-        public IResult Post(Usuario entidade)
+        public IResult Post([FromBody] Usuario entidade)
         {
             var result = new Usuario();
             try
@@ -41,10 +42,10 @@ namespace DriveOfCity.Controllers.UsuarioController
             return Results.Ok();
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("token")]
         [AllowAnonymous]
-        public IResult Token(Usuario entidade)
+        public IResult Token([FromBody] LoginRequest entidade)
         {
             var usuario = _contextData.Usuario.Where(x => x.Email == entidade.Email && x.Senha == entidade.Senha).FirstOrDefault();
             if (usuario == null)
