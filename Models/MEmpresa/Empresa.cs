@@ -1,5 +1,4 @@
-﻿using DriveOfCity.Models.MEndereco;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DriveOfCity.Models.MEmpresa
 {
@@ -14,10 +13,6 @@ namespace DriveOfCity.Models.MEmpresa
 
         [Column("Descricao")]
         public string Descricao { get; set; }
-
-        public virtual Endereco Endereco { get; set; }
-
-        //public byte[] ImagemEmpresa { get; set; }
 
         [Column("Lat")]
         public string Lat { get; set; }

@@ -1,4 +1,4 @@
-# FutePerson
+# CW City
 
 Projeto iniciado dia 02/06/2022
 Programadores idealizadores do projeto: João Diego, Thiago Degobi

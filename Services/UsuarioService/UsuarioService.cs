@@ -1,6 +1,5 @@
 ﻿using DriveOfCity.Infra;
 using DriveOfCity.IServices.IUsuarioService;
-using DriveOfCity.Models.MPerfil;
 using DriveOfCity.Models.MUsuario;
 
 namespace DriveOfCity.Services.UsuarioService
@@ -25,6 +24,7 @@ namespace DriveOfCity.Services.UsuarioService
             var novoUsuario = new Usuario();
             try
             {
+                novoUsuario.Nome = entidade.Nome;
                 novoUsuario.DataCriacao = DateTime.Now;
                 novoUsuario.DataAtualizacao = DateTime.Now;
                 novoUsuario.Senha = entidade.Senha;
