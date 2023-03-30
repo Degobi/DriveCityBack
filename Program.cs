@@ -1,9 +1,7 @@
 using DriveOfCity.Infra;
 using DriveOfCity.IServices.IEmpresaService;
-using DriveOfCity.IServices.IPerfilService;
 using DriveOfCity.IServices.IUsuarioService;
 using DriveOfCity.Services.EmpresaService;
-using DriveOfCity.Services.PerfilService;
 using DriveOfCity.Services.UsuarioService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -21,9 +19,6 @@ builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<IEmpresaService, EmpresaService>();
 #endregion
 
-#region PERFIL =============================
-builder.Services.AddScoped<IPerfilService, PerfilService>();
-#endregion
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

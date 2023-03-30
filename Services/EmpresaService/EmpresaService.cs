@@ -33,7 +33,6 @@ namespace DriveOfCity.Services.EmpresaService
                 {
                     Nome = entidade.Nome,
                     Descricao = entidade.Descricao,
-                    Endereco = entidade.Endereco,
                     //ImagemEmpresa = entidade.ImagemEmpresa,
                     Lat = entidade.Lat,
                     Lng = entidade.Lng,
