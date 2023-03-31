@@ -6,24 +6,21 @@ env:
 
 phases:
   install:
-    runtime-versions:
-      dotnet: 7.0
     commands:
-      - dotnet tool install -g Amazon.ElasticBeanstalk.Tools
-      - dotnet-install --version 7.0 --install-dir /root/dotnet
+      - curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --version 7.0.0
   pre_build:
     commands:
       - echo Restore started on `date`
-      - /root/dotnet/dotnet restore
+      - dotnet restore
   build:
     commands:
       - echo Build started on `date`
-      - /root/dotnet/dotnet build -c Release
-      - /root/dotnet/dotnet test -c Release --logger trx --results-directory ./testresults
+      - dotnet build -c Release
+      - dotnet test -c Release --logger trx --results-directory ./testresults
   post_build:
     commands:
       - echo Publish started on `date`
-      - /root/dotnet/dotnet publish -c Release -r linux-x64 -o ./build_output ./${PROJECT}/${PROJECT}.Api.csproj --self-contained false
+      - dotnet publish -c Release -r linux-x64 -o ./build_output ./${PROJECT}/${PROJECT}.Api.csproj --self-contained false
 
 artifacts:
   files:
