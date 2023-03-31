@@ -1,32 +1,28 @@
 ﻿version: 0.2
 
 env:
-  variables:
-    PROJECT: DriveOfCity
+    variables:
+        PROJECT: DriveOfCity
 
-phases:
-  install:
-    runtime-versions:
-      dotnet: 6.0
-    commands:
-      - dotnet tool install -g Amazon.ElasticBeanstalk.Tools
-      - dotnet-install --version 6.0 --install-dir /root/dotnet
-  pre_build:
-    commands:
-      - echo Restore started on `date`
-      - /root/dotnet/dotnet restore
-  build:
-    commands:
-      - echo Build started on `date`
-      - /root/dotnet/dotnet build -c Release
-      - /root/dotnet/dotnet test -c Release --logger trx --results-directory ./testresults
-  post_build:
-    commands:
-      - echo Publish started on `date`
-      - /root/dotnet/dotnet publish -c Release -r linux-x64 -o ./build_output ./${PROJECT}/${PROJECT}.Api.csproj --self-contained false
+phases:   
+    pre_build:
+        commands:
+            - echo Restore started on `date`
+            - dotnet restore
+      
+    build:
+        commands:
+            - echo Build started on `date`
+            - dotnet build -c Release
+            - dotnet test -c Release --logger trx --results-directory ./testresults
+      
+    post_build:
+        commands:
+            - echo Publish started on `date`
+            - dotnet publish -c Release  -r linux-x64 -o ./build_output ./${PROJECT}/${PROJECT}.Api.csproj --self-contained false
 
 artifacts:
-  files:
-    - '**/*'
-  base-directory: ./build_output
-  discard-paths: no
+    files:
+        - '**/*'
+    base-directory: ./build_output
+    discard-paths: no
