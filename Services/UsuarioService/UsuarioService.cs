@@ -6,6 +6,9 @@ namespace DriveOfCity.Services.UsuarioService
 {
     public class UsuarioService : IUsuarioService
     {
+
+
+        //teste
         private IRepositorioBase<Usuario> _repositorio;
         private readonly ContextDataBase _context;
 
