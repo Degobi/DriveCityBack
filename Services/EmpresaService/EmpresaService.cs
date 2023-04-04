@@ -48,5 +48,12 @@ namespace DriveOfCity.Services.EmpresaService
                 throw new Exception(ex.Message);
             }
         }
+
+        public async Task<IQueryable> GetAll()
+        {
+            var result = _repositorioBase.Get();
+
+            return result;
+        }
     }
 }

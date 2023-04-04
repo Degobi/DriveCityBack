@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using DriveOfCity.Models.MTabelaPreco;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DriveOfCity.Models.MEmpresa
 {
@@ -19,5 +20,7 @@ namespace DriveOfCity.Models.MEmpresa
 
         [Column("Lng")]
         public string Lng { get; set; }
+
+        public virtual List<TabelaPreco> TabelaPrecos { get; set; }
     }
 }
