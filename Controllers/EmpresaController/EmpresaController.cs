@@ -17,7 +17,7 @@ namespace DriveOfCity.Controllers.EmpresaController
         }
 
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize]
         public async Task<IActionResult> Post([FromBody] Empresa entidade)
         {
             try
@@ -31,6 +31,24 @@ namespace DriveOfCity.Controllers.EmpresaController
                 throw new Exception(ex.Message);
             }
             
-        } 
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> GetEmpresas()
+        {
+            IQueryable result;
+            try
+            {
+                result = await _service.GetAll();
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+
+            return Ok(result);
+        }
     }
 }

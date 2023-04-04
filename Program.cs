@@ -9,10 +9,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<ContextDataBase>(options =>
-{
-    options.UseNpgsql(builder.Configuration["ConnectionString:DriveOC"]);
-});
+builder.Services.AddSqlServer<ContextDataBase>(builder.Configuration["ConnectionString:DriveOC"]);
+
 builder.Services.AddControllers();
 
 #region USUARIO ============================
@@ -52,11 +50,11 @@ builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
-//if (app.Environment.IsDevelopment())
-//{
+if (app.Environment.IsDevelopment())
+{
     app.UseSwagger();
     app.UseSwaggerUI();
-//}
+}
 app.UseCors(x => x
     .AllowAnyMethod()
     .AllowAnyHeader()

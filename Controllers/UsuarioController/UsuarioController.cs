@@ -73,7 +73,7 @@ namespace DriveOfCity.Controllers.UsuarioController
         }
 
         [HttpGet]
-        //[Authorize]
+        [Authorize]
         [Route("getall")]
         public IResult GetAll()
         {
