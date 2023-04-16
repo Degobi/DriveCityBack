@@ -50,5 +50,37 @@ namespace DriveOfCity.Controllers.EmpresaController
 
             return Ok(result);
         }
+
+        [HttpPut]
+        [Authorize]
+        public async Task<IActionResult> UpdateEmpresa([FromBody] Empresa entidade)
+        {
+            try
+            {
+                var result = await _service.UpdateEmpresa(entidade);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        [HttpDelete]
+        [Authorize]
+        [Route("{id}")]
+        public IResult DeleteEmpresa(int id)
+        {
+            try
+            {
+               _service.Delete(id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return Results.Ok();
+        }
     }
 }

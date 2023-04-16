@@ -46,7 +46,27 @@ namespace DriveOfCity.Services.UsuarioService
 
         public Usuario Update(Usuario usuario)
         {
-            throw new NotImplementedException();
+            if (usuario == null)
+                throw new ArgumentNullException("Dados inválidos!");
+
+            var usuarioBanco = _repositorio.Get().Where(x => x.Id == usuario.Id).FirstOrDefault();
+            if (usuarioBanco == null)
+                throw new ArgumentNullException("Não foi possível localizar o usuário!");
+
+            try
+            {
+                GeneralHelper.CopiarObjeto(usuario, ref usuarioBanco);
+
+                _context.Update(usuarioBanco);
+                _context.SaveChanges();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return usuarioBanco;
         }
 
         public IQueryable GetAll()

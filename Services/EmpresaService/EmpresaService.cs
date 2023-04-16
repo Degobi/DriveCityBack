@@ -1,6 +1,7 @@
 ﻿using DriveOfCity.Infra;
 using DriveOfCity.IServices.IEmpresaService;
 using DriveOfCity.Models.MEmpresa;
+using Microsoft.EntityFrameworkCore;
 
 namespace DriveOfCity.Services.EmpresaService
 {
@@ -36,10 +37,11 @@ namespace DriveOfCity.Services.EmpresaService
                     //ImagemEmpresa = entidade.ImagemEmpresa,
                     Lat = entidade.Lat,
                     Lng = entidade.Lng,
+                    TabelaPrecos = entidade.TabelaPrecos != null ? entidade.TabelaPrecos : null,
                 };
 
-                _context.Empresa.Add(empresa);
-                _context.SaveChangesAsync();
+                await _context.AddAsync(empresa);
+                await _context.SaveChangesAsync();
 
                 return empresa;
             }
@@ -51,9 +53,42 @@ namespace DriveOfCity.Services.EmpresaService
 
         public async Task<IQueryable> GetAll()
         {
-            var result = _repositorioBase.Get();
+            var result = _repositorioBase.Get().Include("TabelaPrecos");
 
             return result;
+        }
+
+        public async Task<Empresa> UpdateEmpresa(Empresa entidade)
+        {
+            if (entidade == null)
+                throw new ArgumentNullException("Erro ao realizar atualização!");
+
+            var empresaBanco = await _repositorioBase.Get().Where(x => x.Id == entidade.Id).FirstOrDefaultAsync();
+            if (empresaBanco == null)
+                throw new ArgumentNullException("Nenhuma empresa foi localizada!");
+
+            try
+            {
+                GeneralHelper.CopiarObjeto(entidade, ref empresaBanco);
+
+                _context.Update(empresaBanco);
+                _context.SaveChangesAsync();
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return empresaBanco;
+        }
+
+        public void Delete(int id)
+        {
+            var empresaBanco = _repositorioBase.Get().Include("TabelaPrecos").Where(x => x.Id == id).FirstOrDefault();
+
+            _context.Remove(empresaBanco);
+            _context.SaveChanges();
         }
     }
 }

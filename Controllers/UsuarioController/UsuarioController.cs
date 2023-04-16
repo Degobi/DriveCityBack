@@ -68,7 +68,9 @@ namespace DriveOfCity.Controllers.UsuarioController
 
             return Results.Ok(new
             {
-                token = tokenHandler.WriteToken(token),
+                Id = usuario.Id,
+                Email = usuario.Email,
+                Token = tokenHandler.WriteToken(token),
             });
         }
 
@@ -84,6 +86,24 @@ namespace DriveOfCity.Controllers.UsuarioController
             }
             catch (Exception ex)
             {
+                throw new Exception(ex.Message);
+            }
+
+            return Results.Ok(result);
+        }
+
+        [HttpPut]
+        [Authorize]
+        public IResult PutUsuario([FromBody] Usuario usuario)
+        {
+            Usuario result = null;
+            try
+            {
+                result = this._usuarioService.Update(usuario);
+            }
+            catch (Exception ex)
+            {
+
                 throw new Exception(ex.Message);
             }
 
