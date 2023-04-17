@@ -1,5 +1,6 @@
 ﻿using DriveOfCity.Models.MEmpresa;
 using DriveOfCity.Models.MUsuario;
+using DriveOfCity.Models.MVeiculo;
 using Microsoft.EntityFrameworkCore;
 
 namespace DriveOfCity.Infra
@@ -15,6 +16,9 @@ namespace DriveOfCity.Infra
         public DbSet<Empresa> Empresa { get; set; }
         #endregion
 
+        #region Veiculo ==============================
+        public DbSet<Veiculo> Veiculo { get; set; }
+        #endregion
         public ContextDataBase(DbContextOptions<ContextDataBase> options) : base(options){ }
     }
 }
