@@ -18,7 +18,7 @@ namespace DriveOfCity.Services.UsuarioService
             _context = context;
         }
 
-        public Usuario Save(Usuario entidade)
+        public Usuario Save(Usuario entidade, bool isTeste = false)
         {
             var usuarioExistente = _context.Usuario.Where(x => x.Email == entidade.Email).FirstOrDefault();
             if (usuarioExistente != null)
@@ -33,8 +33,11 @@ namespace DriveOfCity.Services.UsuarioService
                 novoUsuario.Senha = entidade.Senha;
                 novoUsuario.Email = entidade.Email;
 
-                _context.Usuario.Add(novoUsuario);
-                _context.SaveChanges();
+                if (!isTeste)
+                {
+                    _context.Usuario.Add(novoUsuario);
+                    _context.SaveChanges();
+                }
             }
             catch (Exception ex)
             {
@@ -44,7 +47,7 @@ namespace DriveOfCity.Services.UsuarioService
             return novoUsuario;
         }
 
-        public Usuario Update(Usuario usuario)
+        public Usuario Update(Usuario usuario, bool isTeste = false)
         {
             if (usuario == null)
                 throw new ArgumentNullException("Dados inválidos!");
@@ -57,8 +60,12 @@ namespace DriveOfCity.Services.UsuarioService
             {
                 GeneralHelper.CopiarObjeto(usuario, ref usuarioBanco);
 
-                _context.Update(usuarioBanco);
-                _context.SaveChanges();
+                if (!isTeste)
+                {
+                    _context.Update(usuarioBanco);
+                    _context.SaveChanges();
+                }
+
             }
             catch (Exception)
             {
@@ -67,6 +74,31 @@ namespace DriveOfCity.Services.UsuarioService
             }
 
             return usuarioBanco;
+        }
+
+        public bool Delete(int id) 
+        {
+           
+            var usuario = _repositorio.Get().Where(x => x.Id == id).FirstOrDefault();
+
+            if (usuario == null)
+                throw new InvalidOperationException("Usuário não encontrado.");
+            
+
+            _context.Usuario.Remove(usuario);
+            _context.SaveChanges();
+
+            return true;
+        }
+
+        public Usuario GetId(int id)
+        {
+            var usuario = _repositorio.Get().Where(x => x.Id == id).FirstOrDefault();
+
+            if (usuario == null)
+                throw new InvalidOperationException("Usuário não encontrado.");
+
+            return usuario;
         }
 
         public IQueryable GetAll()
