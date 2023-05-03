@@ -66,6 +66,25 @@ namespace DriveOfCity.Controllers.EmpresaController
             }
         }
 
+        [HttpGet]
+        [Authorize]
+        [Route("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            Empresa result = null;
+
+            try
+            {
+                result = await _service.GetId(id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return Ok(result);
+        }
+
         [HttpDelete]
         [Authorize]
         [Route("{id}")]

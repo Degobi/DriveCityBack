@@ -16,7 +16,7 @@ namespace DriveOfCity.Services.EmpresaService
             _context = context;
         }
 
-        public async Task<Empresa> Save(Empresa entidade)
+        public async Task<Empresa> Save(Empresa entidade, bool isTeste = false)
         {
             try
             {
@@ -40,8 +40,11 @@ namespace DriveOfCity.Services.EmpresaService
                     TabelaPrecos = entidade.TabelaPrecos != null ? entidade.TabelaPrecos : null,
                 };
 
-                await _context.AddAsync(empresa);
-                await _context.SaveChangesAsync();
+                if (!isTeste )
+                {
+                    await _context.AddAsync(empresa);
+                    await _context.SaveChangesAsync();
+                }
 
                 return empresa;
             }
@@ -56,6 +59,18 @@ namespace DriveOfCity.Services.EmpresaService
             var result = _repositorioBase.Get().Include("TabelaPrecos");
 
             return result;
+        }
+
+        public async Task<Empresa> GetId(int id)
+        {
+            var result = await _repositorioBase.Get()
+                .Include("TabelaPrecos").Where(x => x.Id == id).FirstOrDefaultAsync();
+
+            if (result == null)
+                throw new InvalidOperationException("Empresa não encontrada.");
+
+            return result;
+
         }
 
         public async Task<Empresa> UpdateEmpresa(Empresa entidade)
@@ -83,12 +98,14 @@ namespace DriveOfCity.Services.EmpresaService
             return empresaBanco;
         }
 
-        public void Delete(int id)
+        public bool Delete(int id)
         {
             var empresaBanco = _repositorioBase.Get().Include("TabelaPrecos").Where(x => x.Id == id).FirstOrDefault();
 
             _context.Remove(empresaBanco);
             _context.SaveChanges();
+
+            return true;
         }
     }
 }

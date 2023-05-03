@@ -4,9 +4,10 @@ namespace DriveOfCity.IServices.IEmpresaService
 {
     public interface IEmpresaService
     {
-        Task<Empresa> Save(Empresa entidade);
+        Task<Empresa> Save(Empresa entidade, bool isTeste = false);
         Task<Empresa> UpdateEmpresa(Empresa entidade);
         Task<IQueryable> GetAll();
-        void Delete(int id);
+        Task<Empresa> GetId(int id);
+        bool Delete(int id);
     }
 }
