@@ -1,6 +1,7 @@
 ﻿using DriveOfCity.Infra;
 using DriveOfCity.IServices.IUsuarioService;
 using DriveOfCity.Models.MUsuario;
+using Microsoft.EntityFrameworkCore;
 
 namespace DriveOfCity.Services.UsuarioService
 {
@@ -93,7 +94,7 @@ namespace DriveOfCity.Services.UsuarioService
 
         public Usuario GetId(int id)
         {
-            var usuario = _repositorio.Get().Where(x => x.Id == id).FirstOrDefault();
+            var usuario = _repositorio.Get().Include().Where(x => x.Id == id).FirstOrDefault();
 
             if (usuario == null)
                 throw new InvalidOperationException("Usuário não encontrado.");

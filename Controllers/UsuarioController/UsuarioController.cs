@@ -110,5 +110,22 @@ namespace DriveOfCity.Controllers.UsuarioController
 
             return Results.Ok(result);
         }
+
+        [HttpGet]
+        [Authorize]
+        [Route("{id}")]
+        public IResult Get(int id)
+        {
+            try
+            {
+                Usuario result = _usuarioService.GetId(id);
+
+                return Results.Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

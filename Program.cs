@@ -1,8 +1,10 @@
 using DriveOfCity.Infra;
 using DriveOfCity.IServices.IEmpresaService;
 using DriveOfCity.IServices.IUsuarioService;
+using DriveOfCity.IServices.IVeiculoService;
 using DriveOfCity.Services.EmpresaService;
 using DriveOfCity.Services.UsuarioService;
+using DriveOfCity.Services.VeiculoService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -21,6 +23,9 @@ builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<IEmpresaService, EmpresaService>();
 #endregion
 
+#region VEICULO ============================
+builder.Services.AddScoped<IVeiculoService, VeiculoService>();
+#endregion
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -50,7 +55,7 @@ builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
-if (app.Environment.IsProduction())
+if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
