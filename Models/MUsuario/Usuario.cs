@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using DriveOfCity.Models.MVeiculo;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DriveOfCity.Models.MUsuario
 {
@@ -22,6 +23,9 @@ namespace DriveOfCity.Models.MUsuario
 
         [Column("DataAtualizacao")]
         public DateTime DataAtualizacao { get; set; }
+
+        [NotMapped]
+        public virtual IList<Veiculo> Veiculo { get; set; }
 
     }
 }

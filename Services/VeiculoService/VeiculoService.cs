@@ -18,7 +18,23 @@ namespace DriveOfCity.Services.VeiculoService
 
         public async Task<Veiculo> Save(Veiculo entidade, bool isTeste = false)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (entidade == null)
+                    throw new ArgumentNullException("Não foi possivel cadastrar veiculo!");
+
+                var veiculo = new Veiculo();
+
+                GeneralHelper.CopiarObjeto(entidade, ref veiculo);
+                _context.Veiculo.Add(veiculo);
+                 await _context.SaveChangesAsync();
+
+                return veiculo;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public async Task<Veiculo> Update(Veiculo entidade, bool isTeste = false)

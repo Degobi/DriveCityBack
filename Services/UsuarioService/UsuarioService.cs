@@ -1,7 +1,10 @@
 ﻿using DriveOfCity.Infra;
 using DriveOfCity.IServices.IUsuarioService;
 using DriveOfCity.Models.MUsuario;
+using DriveOfCity.Models.MVeiculo;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace DriveOfCity.Services.UsuarioService
 {
@@ -11,11 +14,13 @@ namespace DriveOfCity.Services.UsuarioService
 
         //teste
         private IRepositorioBase<Usuario> _repositorio;
+        private IRepositorioBase<Veiculo> _repositorioVeiculo;
         private readonly ContextDataBase _context;
 
         public UsuarioService(ContextDataBase context)
         {
             _repositorio = new RepositorioBase<Usuario>(context);
+            _repositorioVeiculo = new RepositorioBase<Veiculo>(context);
             _context = context;
         }
 
@@ -94,10 +99,22 @@ namespace DriveOfCity.Services.UsuarioService
 
         public Usuario GetId(int id)
         {
-            var usuario = _repositorio.Get().Include().Where(x => x.Id == id).FirstOrDefault();
-
+            var usuario = _repositorio.Get().Where(x => x.Id == id).FirstOrDefault();
+            
             if (usuario == null)
                 throw new InvalidOperationException("Usuário não encontrado.");
+
+            var veiculos = _repositorioVeiculo.Get().Where(x => x.UsuarioId == usuario.Id).ToList();
+
+            usuario.Veiculo = veiculos ?? null;
+
+            using(var sha256 = SHA256.Create())
+            {
+                var bytes = Encoding.UTF8.GetBytes(usuario.Senha);
+                var hashBytes = sha256.ComputeHash(bytes);
+                var hashString = BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
+                usuario.Senha = hashString;
+            }
 
             return usuario;
         }

@@ -58,7 +58,7 @@ namespace DriveOfCity.Controllers.VeiculoController
 
         [HttpPut]
         [Authorize]
-        public async Task<IResult> PutUsuario([FromBody] Veiculo entidade)
+        public async Task<IResult> PutVeiculo([FromBody] Veiculo entidade)
         {
             try
             {
