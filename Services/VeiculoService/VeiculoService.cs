@@ -26,6 +26,7 @@ namespace DriveOfCity.Services.VeiculoService
                 var veiculo = new Veiculo();
 
                 GeneralHelper.CopiarObjeto(entidade, ref veiculo);
+
                 _context.Veiculo.Add(veiculo);
                  await _context.SaveChangesAsync();
 

@@ -107,14 +107,7 @@ namespace DriveOfCity.Services.UsuarioService
             var veiculos = _repositorioVeiculo.Get().Where(x => x.UsuarioId == usuario.Id).ToList();
 
             usuario.Veiculo = veiculos ?? null;
-
-            using(var sha256 = SHA256.Create())
-            {
-                var bytes = Encoding.UTF8.GetBytes(usuario.Senha);
-                var hashBytes = sha256.ComputeHash(bytes);
-                var hashString = BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
-                usuario.Senha = hashString;
-            }
+            usuario.Senha = null;
 
             return usuario;
         }
