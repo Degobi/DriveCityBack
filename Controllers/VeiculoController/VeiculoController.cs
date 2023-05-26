@@ -24,7 +24,7 @@ namespace DriveOfCity.Controllers.VeiculoController
         [HttpPost]
         [Authorize]
         [Route("")]
-        public async Task<IResult> Post(Veiculo entidade)
+        public async Task<IResult> Post([FromBody] Veiculo entidade)
         {
             try
             {

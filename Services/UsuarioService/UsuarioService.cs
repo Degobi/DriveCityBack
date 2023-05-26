@@ -10,9 +10,6 @@ namespace DriveOfCity.Services.UsuarioService
 {
     public class UsuarioService : IUsuarioService
     {
-
-
-        //teste
         private IRepositorioBase<Usuario> _repositorio;
         private IRepositorioBase<Veiculo> _repositorioVeiculo;
         private readonly ContextDataBase _context;
@@ -106,7 +103,7 @@ namespace DriveOfCity.Services.UsuarioService
 
             var veiculos = _repositorioVeiculo.Get().Where(x => x.UsuarioId == usuario.Id).ToList();
 
-            usuario.Veiculo = veiculos ?? null;
+            usuario.Veiculo = veiculos;
             usuario.Senha = null;
 
             return usuario;
