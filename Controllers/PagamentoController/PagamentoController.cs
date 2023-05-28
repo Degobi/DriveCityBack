@@ -34,11 +34,11 @@ namespace DriveOfCity.Controllers.PagamentoController
 
         [Authorize]
         [HttpPost("reembolso")]
-        public IActionResult ProcessarReembolso([FromBody]ReembolsoRequisicao entidade)
+        public async Task<IActionResult> ProcessarReembolso([FromBody]ReembolsoRequisicao entidade)
         {
             try
             {
-                bool reembolsoProcessado = _service.ProcessarReembolso(entidade);
+                bool reembolsoProcessado = await _service.ProcessarReembolso(entidade);
 
                 if (!reembolsoProcessado)
                     return BadRequest("Falha ao processar o reembolso");

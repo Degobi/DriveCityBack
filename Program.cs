@@ -1,9 +1,12 @@
 using DriveOfCity.Infra;
+using DriveOfCity.IServices.IEmailService;
 using DriveOfCity.IServices.IEmpresaService;
 using DriveOfCity.IServices.IPagamentoService;
 using DriveOfCity.IServices.IUsuarioService;
 using DriveOfCity.IServices.IVeiculoService;
+using DriveOfCity.Services.EmailService;
 using DriveOfCity.Services.EmpresaService;
+using DriveOfCity.Services.PagamentoService;
 using DriveOfCity.Services.UsuarioService;
 using DriveOfCity.Services.VeiculoService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -32,6 +35,9 @@ builder.Services.AddScoped<IVeiculoService, VeiculoService>();
 builder.Services.AddScoped<IPagamentoService, PagamentoService>();
 #endregion
 
+#region EMAIL ==============================
+builder.Services.AddScoped<IEmailService, SendEmailService>();
+#endregion
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

@@ -8,6 +8,6 @@ namespace DriveOfCity.IServices.IPagamentoService
     public interface IPagamentoService
     {
         Task<PaymentIntent> CreatePaymentIntent(PagamentoRequisicao entidade);
-        bool ProcessarReembolso(ReembolsoRequisicao entidade);
+        Task<bool> ProcessarReembolso(ReembolsoRequisicao entidade);
     }
 }
