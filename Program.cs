@@ -1,5 +1,6 @@
 using DriveOfCity.Infra;
 using DriveOfCity.IServices.IEmpresaService;
+using DriveOfCity.IServices.IPagamentoService;
 using DriveOfCity.IServices.IUsuarioService;
 using DriveOfCity.IServices.IVeiculoService;
 using DriveOfCity.Services.EmpresaService;
@@ -26,6 +27,11 @@ builder.Services.AddScoped<IEmpresaService, EmpresaService>();
 #region VEICULO ============================
 builder.Services.AddScoped<IVeiculoService, VeiculoService>();
 #endregion
+
+#region PAGAMENTO ==========================
+builder.Services.AddScoped<IPagamentoService, PagamentoService>();
+#endregion
+
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
