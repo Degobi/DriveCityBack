@@ -37,7 +37,7 @@ namespace DriveOfCity.Services.EmailService
 
             } else if (tipo == "REEMBOLSO")
             {
-                templateId = "d-17ba8c4a0ab74e7b8c3ff3016b897d43";
+                templateId = "d-b4d88f865caa47c0b50aef307dee9965";
                 mensagem = MailHelper.CreateSingleTemplateEmail(from, to, templateId, data);
 
             } else if (tipo == "NORMAL")
