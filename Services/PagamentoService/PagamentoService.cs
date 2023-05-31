@@ -29,7 +29,7 @@ namespace DriveOfCity.Services.PagamentoService
 
             var options = new PaymentIntentCreateOptions
             {
-                Amount = (long)(entidade.Amount * 100),
+                Amount = (long)(entidade.Amount * 100), // O valor deve ser fornecido em centavos
                 Currency = entidade.Currency,
                 PaymentMethodTypes = new List<string> { "card" }
             };
@@ -38,10 +38,8 @@ namespace DriveOfCity.Services.PagamentoService
             var paymentIntent = await service.CreateAsync(options);
 
             string destinatario = "erika.correia@hotmail.com";
-            string assunto = "Confirmação de Pagamento";
-            string conteudo = "Seu pagamento foi processado com sucesso.";
 
-            await _emailService.EnviarEmail(destinatario, assunto, conteudo);
+            await _emailService.EnviarEmail(destinatario, "PAGAMENTO");
 
             return paymentIntent;
         }
@@ -62,10 +60,8 @@ namespace DriveOfCity.Services.PagamentoService
                 var refund = refundService.Create(refundOptions);
 
                 string destinatario = "erika.correia@hotmail.com";
-                string assunto = "Confirmação de Reembolso";
-                string conteudo = "Seu reembolso foi processado com sucesso.";
 
-                await _emailService.EnviarEmail(destinatario, assunto, conteudo);
+                await _emailService.EnviarEmail(destinatario, "REEMBOLSO");
 
                 return true;
             }
