@@ -33,6 +33,23 @@ namespace DriveOfCity.Controllers.PagamentoController
         }
 
         [Authorize]
+        [HttpPost("link")]
+        public async Task<IActionResult> CreateLink([FromBody]LinkRequisicao entidade)
+        {
+            try
+            {
+                var paymentIntent = await _service.GerarLinkPagamento(entidade);
+
+                return Ok(paymentIntent);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
+
+        [Authorize]
         [HttpPost("reembolso")]
         public async Task<IActionResult> ProcessarReembolso([FromBody]ReembolsoRequisicao entidade)
         {

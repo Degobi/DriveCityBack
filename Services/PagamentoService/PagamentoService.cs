@@ -73,5 +73,26 @@ namespace DriveOfCity.Services.PagamentoService
                 return false;
             }
         }
+
+        public async Task<PaymentLinkService> GerarLinkPagamento(LinkRequisicao entidade)
+        {
+            if (entidade == null)
+                throw new Exception("erro");
+
+            var options = new PaymentLinkCreateOptions
+            {
+                LineItems = new List<PaymentLinkLineItemOptions>
+                {
+                    new PaymentLinkLineItemOptions { Price = "price_1NFkXPDh1EmmTUUN1q4ecyaj", Quantity = 1 },
+                },
+                AllowPromotionCodes = true,
+
+            };
+
+            var service = new PaymentLinkService();
+            await service.CreateAsync(options);
+
+            return service;
+        }
     }
 }

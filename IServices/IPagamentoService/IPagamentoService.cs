@@ -9,5 +9,6 @@ namespace DriveOfCity.IServices.IPagamentoService
     {
         Task<PaymentIntent> CreatePaymentIntent(PagamentoRequisicao entidade);
         Task<bool> ProcessarReembolso(ReembolsoRequisicao entidade);
+        Task<PaymentLinkService> GerarLinkPagamento(LinkRequisicao entidade);
     }
 }
