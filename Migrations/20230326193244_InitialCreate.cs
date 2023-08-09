@@ -84,9 +84,9 @@ namespace DriveOfCity.Migrations
                     Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Descricao = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     EnderecoId = table.Column<int>(type: "int", nullable: false),
-                    ImagemEmpresa = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
-                    Lat = table.Column<int>(type: "int", nullable: false),
-                    Lng = table.Column<int>(type: "int", nullable: false)
+                    ImagemEmpresa = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    Lat = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Lng = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {

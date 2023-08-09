@@ -17,7 +17,7 @@ namespace DriveOfCity.Controllers.EmpresaController
         }
 
         [HttpPost]
-        [Authorize]
+        [AllowAnonymous]
         public async Task<IActionResult> Post([FromBody] Empresa entidade)
         {
             try
