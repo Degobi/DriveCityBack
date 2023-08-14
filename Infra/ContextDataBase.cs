@@ -1,4 +1,5 @@
-﻿using DriveOfCity.Models.MEmpresa;
+﻿using DriveOfCity.Models.MTabelaPreco;
+using DriveOfCity.Models.MEmpresa;
 using DriveOfCity.Models.MUsuario;
 using DriveOfCity.Models.MVeiculo;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,10 @@ namespace DriveOfCity.Infra
 
         #region Veiculo ==============================
         public DbSet<Veiculo> Veiculo { get; set; }
+        #endregion
+
+        #region Tabela Preço =========================
+        public DbSet<TabelaPreco> TabelaPreco { get; set; }
         #endregion
         public ContextDataBase(DbContextOptions<ContextDataBase> options) : base(options){ }
     }

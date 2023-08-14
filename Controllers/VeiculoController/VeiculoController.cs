@@ -40,14 +40,14 @@ namespace DriveOfCity.Controllers.VeiculoController
 
         [HttpGet]
         [Authorize]
-        [Route("getall")]
-        public IResult GetAll()
+        [Route("getall/{id}")]
+        public async Task<IActionResult> GetAll(int id)
         {
             try
             {
-                IQueryable result = _veiculoService.GetAll();
+                var result = await _veiculoService.GetAll(id);
 
-                return Results.Ok(result);
+                return Ok(result);
             }
             catch (Exception ex)
             {

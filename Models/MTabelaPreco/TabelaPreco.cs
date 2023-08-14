@@ -21,5 +21,8 @@ namespace DriveOfCity.Models.MTabelaPreco
 
         [Column("Desconto_Promocao")]
         public decimal DescontoPromocao { get; set; }
+
+        [Column("EmpresaId")]
+        public int EmpresaId { get; set; }
     }
 }

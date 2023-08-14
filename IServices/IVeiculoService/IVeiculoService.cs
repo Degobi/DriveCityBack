@@ -8,6 +8,6 @@ namespace DriveOfCity.IServices.IVeiculoService
         Task<Veiculo> Update(Veiculo entidade, bool isTeste = false);
         bool Delete(int id);
         Task<Veiculo> GetId(int id);
-        IQueryable GetAll();
+        Task<List<Veiculo>> GetAll(int usuarioId);
     }
 }

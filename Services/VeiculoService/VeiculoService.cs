@@ -53,9 +53,11 @@ namespace DriveOfCity.Services.VeiculoService
             throw new NotImplementedException();
         }
 
-        public IQueryable GetAll()
+        public Task<List<Veiculo>> GetAll(int usuarioId)
         {
-            throw new NotImplementedException();
+            var result = _repositorioBase.Get().Where(x => x.UsuarioId == usuarioId).ToListAsync();
+
+            return result;
         }
     }
 }
