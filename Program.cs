@@ -10,7 +10,6 @@ using DriveOfCity.Services.PagamentoService;
 using DriveOfCity.Services.UsuarioService;
 using DriveOfCity.Services.VeiculoService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -67,11 +66,12 @@ builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 app.UseCors(x => x
     .AllowAnyMethod()
     .AllowAnyHeader()
