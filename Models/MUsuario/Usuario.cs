@@ -18,6 +18,9 @@ namespace DriveOfCity.Models.MUsuario
         [Column("Nome")]
         public string Nome { get; set; }
 
+        [Column("Telefone")]
+        public string Telefone { get; set; }
+
         [Column("DataCriacao")]
         public DateTime DataCriacao { get; set; }
 
