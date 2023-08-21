@@ -30,11 +30,7 @@ namespace DriveOfCity.Services.UsuarioService
             var novoUsuario = new Usuario();
             try
             {
-                novoUsuario.Nome = entidade.Nome;
-                novoUsuario.DataCriacao = DateTime.Now;
-                novoUsuario.DataAtualizacao = DateTime.Now;
-                novoUsuario.Senha = entidade.Senha;
-                novoUsuario.Email = entidade.Email;
+                GeneralHelper.CopiarObjeto(entidade, ref novoUsuario);
 
                 if (!isTeste)
                 {

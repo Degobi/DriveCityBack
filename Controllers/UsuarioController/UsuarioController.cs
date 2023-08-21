@@ -71,6 +71,7 @@ namespace DriveOfCity.Controllers.UsuarioController
                 Id = usuario.Id,
                 Email = usuario.Email,
                 Nome = usuario.Nome,
+                Telefone = usuario.Telefone,
                 Token = tokenHandler.WriteToken(token),
             });
         }
